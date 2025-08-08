@@ -8,995 +8,999 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* VARIABEL WARNA */
-  :root {
-    --primary: #6a35ff;
-    --primary-dark: #5a2ae6;
-    --primary-light: #8b6dff;
-    --secondary: #8e44ff;
-    --accent: #a78bfa;
-    --dark: #3a1f7a;
-    --light: #f1f5f9;
-    --light-bg: #f8fafc;
-    --white: #ffffff;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --info: #3b82f6;
-    --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-    --header-gradient: linear-gradient(135deg, var(--primary), #3a1f7a);
-    --muted-text: #64748b;
-  }
-
-  /* RESET & BASE STYLES */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, sans-serif;
-  }
-
-  body {
-    background: var(--light-bg);
-    color: var(--dark);
-    line-height: 1.6;
-    overflow-x: hidden;
-    text-decoration: none !important;
-  }
-
-  /* Menghapus garis bawah di semua teks */
-  a,
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  span,
-  div {
-    text-decoration: none !important;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  section {
-    padding: 100px 0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  section.appear {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-align: center;
-    border: none;
-  }
-
-  .btn-primary {
-    background: var(--gradient);
-    color: var(--white);
-    box-shadow: 0 4px 12px rgba(106, 53, 255, 0.4);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(106, 53, 255, 0.5);
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-  }
-
-  .btn-outline:hover {
-    background: var(--primary);
-    color: var(--white);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    color: var(--dark);
-    line-height: 1.2;
-    font-weight: 700;
-  }
-
-  h1 {
-    font-size: 3.5rem;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-  }
-
-  h2::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 4px;
-    background: var(--gradient);
-    border-radius: 2px;
-  }
-
-  p {
-    color: var(--muted-text);
-    font-size: 1.1rem;
-    text-decoration: none !important;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .section-title {
-    margin-bottom: 60px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .section-title h2 {
-    text-align: center;
-  }
-
-  .section-title p {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-
-  /* HEADER */
-  header {
-    background: var(--header-gradient);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(106, 53, 255, 0.2);
-  }
-
-  header.scrolled {
-    padding: 10px 0;
-    box-shadow: 0 5px 20px rgba(106, 53, 255, 0.3);
-  }
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--white);
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .logo img {
-    height: 42px;
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  header.scrolled .logo img {
-    height: 36px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 30px;
-  }
-
-  .nav-links a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    position: relative;
-    padding: 5px 0;
-    transition: all 0.3s ease;
-  }
-
-  .nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--white);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--white);
-  }
-
-  .nav-links a:hover::after {
-    width: 100%;
-  }
-
-  /* HERO SECTION */
-  .hero {
-    background: var(--white);
-    padding: 150px 0 120px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 500px;
-    height: 500px;
-    background: var(--gradient);
-    border-radius: 50%;
-    opacity: 0.05;
-    z-index: 0;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    bottom: -100px;
-    left: -100px;
-    width: 400px;
-    height: 400px;
-    background: var(--gradient);
-    border-radius: 50%;
-    opacity: 0.05;
-    z-index: 0;
-  }
-
-  .hero-content {
-    display: flex;
-    align-items: center;
-    gap: 60px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-text {
-    flex: 1;
-  }
-
-  .hero-text h1 {
-    margin-bottom: 20px;
-  }
-
-  .hero-text p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    max-width: 600px;
-  }
-
-  .hero-btns {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 25px 50px rgba(106, 53, 255, 0.15);
-    transform: perspective(1000px) rotateY(-5deg);
-    transition: transform 0.5s ease;
-    position: relative;
-  }
-
-  .hero-image::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient);
-    opacity: 0.1;
-    z-index: 1;
-  }
-
-  .hero-image:hover {
-    transform: perspective(1000px) rotateY(0deg);
-    box-shadow: 0 30px 60px rgba(106, 53, 255, 0.2);
-  }
-
-  .hero-image img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* FEATURES SECTION */
-  .features {
-    background: var(--light-bg);
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-  }
-
-  .feature-card {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 40px 30px;
-    box-shadow: 0 8px 16px rgba(106, 53, 255, 0.08);
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .feature-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: var(--gradient);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .feature-card.appear {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .feature-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 30px rgba(106, 53, 255, 0.12);
-    border-color: var(--primary-light);
-  }
-
-  .feature-card:hover::before {
-    transform: translateY(0);
-  }
-
-  .feature-icon {
-    width: 80px;
-    height: 80px;
-    background: rgba(106, 53, 255, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-    color: var(--primary);
-    font-size: 2rem;
-    transition: all 0.3s ease;
-  }
-
-  .feature-card:hover .feature-icon {
-    background: var(--gradient);
-    color: var(--white);
-    transform: rotateY(360deg);
-  }
-
-  .feature-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-
-  .feature-card p {
-    text-align: center;
-  }
-
-  /* USER ROLES SECTION */
-  .user-roles {
-    background: var(--white);
-  }
-
-  .roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-  }
-
-  .role-card {
-    background: var(--light-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 16px rgba(106, 53, 255, 0.08);
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    min-height: 520px; /* TINGGI MINIMUM BARU */
-  }
-
-  .role-card.appear {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .role-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 30px rgba(106, 53, 255, 0.12);
-  }
-
-  .role-header {
-    padding: 18px 12px;
-    text-align: center;
-    background: transparent;
-    color: var(--dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    min-height: 70px;
-    justify-content: center;
-  }
-
-  /* Warna header spesifik role */
-  .role-card.admin .role-header {
-    background: var(--info);
-    color: var(--white);
-  }
-
-  .role-card.school .role-header {
-    background: var(--success);
-    color: var(--white);
-  }
-
-  .role-card.partner .role-header {
-    background: var(--warning);
-    color: var(--white);
-  }
-
-  .role-icon {
-    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: auto;
-  }
-
-  /* Memperbesar sedikit judul kartu dan membuatnya responsif */
-  .role-header h3 {
-    font-size: clamp(1rem, 2.5vw, 1.15rem);
-    margin: 0;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    color: inherit;
-  }
-
-  .role-body {
-    padding: 20px;
-    flex-grow: 1;
-    padding-bottom: 30px; /* TAMBAHAN PADDING BAWAH */
-  }
-
-  .role-features {
-    list-style: none;
-    margin: 15px 0;
-    padding: 0;
-    margin-bottom: 25px; /* TAMBAHAN MARGIN BAWAH */
-  }
-
-  .role-features li {
-    padding: 6px 0;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid #eaeef6;
-  }
-
-  .role-features li:last-child {
-    border-bottom: none;
-  }
-
-  .role-features li i {
-    color: var(--success);
-    min-width: 20px;
-    text-align: center;
-  }
-
-  /* Tombol login dalam kartu */
-  .role-card .btn {
-    background: var(--primary);
-    color: white;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    pointer-events: auto;
-    cursor: pointer;
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-  }
-
-  .role-card.admin .btn {
-    background: var(--info);
-  }
-
-  .role-card.school .btn {
-    background: var(--success);
-  }
-
-  .role-card.partner .btn {
-    background: var(--warning);
-  }
-
-  .role-card .btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.18);
-    transform: skewX(-25deg);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-  }
-
-  .role-card:hover .btn::before {
-    left: 100%;
-  }
-
-  .role-card .btn span {
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .role-card:hover .btn span {
-    transform: scale(1.03);
-  }
-
-  /* SOCIAL CARDS (FOOTER) */
-  .social-card {
-    flex: 1;
-    min-width: 280px;
-    max-width: 320px;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    color: white;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 2.8s ease, transform 2.8s ease 0.2s;
-    transition: all 0.3s ease;
-  }
-
-  .social-card:hover {
-    transform: translateY(-10px);
-  }
-
-  .social-card.appear {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .social-card-icon-wrapper {
-    width: 70px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-    transition: all 0.3s ease;
-  }
-
-  .social-card:hover .social-card-icon-wrapper {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .social-card-icon-wrapper i {
-    color: white;
-    font-size: 2.5rem;
-  }
-
-  .social-card h3 {
-    color: white;
-    margin-bottom: 8px;
-    font-size: 1.4rem;
-  }
-
-  .social-card p {
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-  }
-
-  .social-card .btn {
-    display: block;
-    padding: 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    background: white;
-    color: inherit;
-  }
-
-  /* WhatsApp Card */
-  .social-card.whatsapp {
-    background: #25d366;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-  }
-
-  .social-card.whatsapp .btn {
-    background: white;
-    color: #25d366;
-  }
-
-  .social-card.whatsapp:hover {
-    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
-  }
-
-  /* Instagram Card */
-  .social-card.instagram {
-    background: linear-gradient(45deg,
-        #f09433,
-        #e6683c,
-        #dc2743,
-        #cc2366,
-        #bc1888);
-    box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);
-  }
-
-  .social-card.instagram .btn {
-    background: white;
-    color: #dc2743;
-  }
-
-  .social-card.instagram:hover {
-    box-shadow: 0 12px 30px rgba(220, 39, 67, 0.4);
-  }
-
-  /* TikTok Card */
-  .social-card.tiktok {
-    background: #000000;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .social-card.tiktok .btn {
-    background: white;
-    color: #000000;
-  }
-
-  .social-card.tiktok:hover {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--dark);
-    color: var(--white);
-    padding: 40px 0 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top right,
-        rgba(106, 53, 255, 0.1) 0%,
-        transparent 40%);
-    pointer-events: none;
-  }
-
-  .copyright {
-    margin-top: 60px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    color: #94a3b8;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  /* HAMBURGER MENU */
-  .hamburger {
-    display: none;
-    cursor: pointer;
-    z-index: 1001;
-  }
-
-  .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: var(--white);
-    margin: 5px;
-    transition: all 0.3s ease;
-  }
-
-  /* MOBILE MENU */
-  .mobile-nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: var(--white);
-    z-index: 1000;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    padding: 80px 30px 30px;
-    transition: right 0.4s ease;
-  }
-
-  .mobile-nav.active {
-    right: 0;
-  }
-
-  .mobile-nav a {
-    display: block;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    color: var(--dark);
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-
-  .mobile-nav a:hover {
-    color: var(--primary);
-    transform: translateX(5px);
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.5rem;
-    color: var(--dark);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .close-btn:hover {
-    color: var(--primary);
-    transform: rotate(90deg);
-  }
-
-  /* ANIMASI PULSE UNTUK LOGIN CARD */
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(106, 53, 255, 0.5);
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* VARIABEL WARNA */
+    :root {
+      --primary: #6a35ff;
+      --primary-dark: #5a2ae6;
+      --primary-light: #8b6dff;
+      --secondary: #8e44ff;
+      --accent: #a78bfa;
+      --dark: #3a1f7a;
+      --light: #f1f5f9;
+      --light-bg: #f8fafc;
+      --white: #ffffff;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --header-gradient: linear-gradient(135deg, var(--primary), #3a1f7a);
+      --muted-text: #64748b;
+    }
+
+    /* RESET & BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    body {
+      background: var(--light-bg);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      text-decoration: none !important;
+    }
+
+    /* Menghapus garis bawah di semua teks */
+    a,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    span,
+    div {
+      text-decoration: none !important;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 100px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.appear {
+      opacity: 1;
       transform: translateY(0);
     }
 
-    50% {
-      box-shadow: 0 0 20px 10px rgba(106, 53, 255, 0.8);
-      transform: translateY(-5px);
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+      border: none;
     }
 
-    100% {
-      box-shadow: 0 0 0 0 rgba(106, 53, 255, 0.5);
-      transform: translateY(0);
+    .btn-primary {
+      background: var(--gradient);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(106, 53, 255, 0.4);
     }
-  }
 
-  .role-card.highlight-pulse {
-    animation: pulse 1.5s ease;
-  }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(106, 53, 255, 0.5);
+      background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+    }
 
-  /* RESPONSIVE */
-  @media (max-width: 992px) {
-    .hero-content {
-      flex-direction: column;
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: var(--dark);
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+
+    p {
+      color: var(--muted-text);
+      font-size: 1.1rem;
+      text-decoration: none !important;
+    }
+
+    .text-center {
       text-align: center;
     }
 
-    .hero-text {
-      margin-bottom: 50px;
+    .section-title {
+      margin-bottom: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .hero-btns {
-      justify-content: center;
+    .section-title h2 {
+      text-align: center;
     }
 
-    h1 {
-      font-size: 2.8rem;
+    .section-title p {
+      font-size: 1.2rem;
+      text-align: center;
     }
 
-    h2 {
-      font-size: 2.2rem;
+    /* HEADER */
+    header {
+      background: var(--header-gradient);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(106, 53, 255, 0.2);
     }
 
-    .nav-links {
-      display: none;
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 5px 20px rgba(106, 53, 255, 0.3);
     }
 
-    .section-title {
-      margin-bottom: 40px;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    /* Pastikan header role tetap kolom di tablet */
-    .role-header {
-      flex-direction: column;
+    .header-container {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .role-header h3 {
-      font-size: clamp(1rem, 2.8vw, 1.12rem);
-    }
-    
-    /* Tinggi kartu untuk tablet */
-    .role-card {
-      min-height: 500px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    section {
-      padding: 70px 0;
-    }
-
-    .hero {
-      padding: 120px 0 80px;
-    }
-
-    .hero-text h1 {
-      font-size: 2.5rem;
-    }
-
-    .hero-image {
-      transform: perspective(0) rotateY(0);
-    }
-
-    .feature-card,
-    .role-card {
-      padding: 20px;
-      min-height: auto; /* Kembali ke tinggi otomatis di mobile */
-    }
-
-    .social-card {
-      min-width: 100%;
-    }
-
-    .role-header h3 {
-      font-size: clamp(0.98rem, 3.2vw, 1.1rem);
-    }
-
-    .role-icon {
-      font-size: clamp(1.8rem, 4.5vw, 2.4rem);
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 2.2rem;
-    }
-
-    h2 {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
       font-size: 1.8rem;
-    }
-
-    .hero {
-      padding: 100px 0 60px;
-    }
-
-    .hero-text h1 {
-      font-size: 2rem;
-    }
-
-    .hero-btns .btn {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    .logo span {
-      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
     }
 
     .logo img {
+      height: 42px;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    header.scrolled .logo img {
       height: 36px;
     }
 
-    /* Pastikan ikon tetap di atas dan judul agak mengecil supaya muat di layar kecil */
-    .role-header {
-      flex-direction: column;
-      gap: 6px;
-      padding: 12px 8px;
+    .nav-links {
+      display: flex;
+      gap: 30px;
     }
 
-    .role-header h3 {
-      font-size: clamp(0.92rem, 4.2vw, 1rem);
-      white-space: normal;
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--white);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: var(--white);
+      padding: 150px 0 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: var(--gradient);
+      border-radius: 50%;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: var(--gradient);
+      border-radius: 50%;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h1 {
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(106, 53, 255, 0.15);
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-image:hover {
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 30px 60px rgba(106, 53, 255, 0.2);
+    }
+
+    .hero-image img {
       max-width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* FEATURES SECTION */
+    .features {
+      background: var(--light-bg);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 40px 30px;
+      box-shadow: 0 8px 16px rgba(106, 53, 255, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(106, 53, 255, 0.12);
+      border-color: var(--primary-light);
+    }
+
+    .feature-card:hover::before {
+      transform: translateY(0);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(106, 53, 255, 0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      color: var(--primary);
+      font-size: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      background: var(--gradient);
+      color: var(--white);
+      transform: rotateY(360deg);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .feature-card p {
+      text-align: center;
+    }
+
+    /* USER ROLES SECTION */
+    .user-roles {
+      background: var(--white);
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .role-card {
+      background: var(--light-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(106, 53, 255, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      min-height: 520px;
+      /* TINGGI MINIMUM BARU */
+    }
+
+    .role-card.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .role-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(106, 53, 255, 0.12);
+    }
+
+    .role-header {
+      padding: 18px 12px;
+      text-align: center;
+      background: transparent;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-height: 70px;
+      justify-content: center;
+    }
+
+    /* Warna header spesifik role */
+    .role-card.admin .role-header {
+      background: var(--info);
+      color: var(--white);
+    }
+
+    .role-card.school .role-header {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .role-card.partner .role-header {
+      background: var(--warning);
+      color: var(--white);
     }
 
     .role-icon {
-      font-size: clamp(1.6rem, 5.5vw, 2.2rem);
-      margin-bottom: 6px;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
     }
-  }
-</style>
+
+    /* Memperbesar sedikit judul kartu dan membuatnya responsif */
+    .role-header h3 {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin: 0;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      color: inherit;
+    }
+
+    .role-body {
+      padding: 20px;
+      flex-grow: 1;
+      padding-bottom: 30px;
+      /* TAMBAHAN PADDING BAWAH */
+    }
+
+    .role-features {
+      list-style: none;
+      margin: 15px 0;
+      padding: 0;
+      margin-bottom: 25px;
+      /* TAMBAHAN MARGIN BAWAH */
+    }
+
+    .role-features li {
+      padding: 6px 0;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #eaeef6;
+    }
+
+    .role-features li:last-child {
+      border-bottom: none;
+    }
+
+    .role-features li i {
+      color: var(--success);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Tombol login dalam kartu */
+    .role-card .btn {
+      background: var(--primary);
+      color: white;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      pointer-events: auto;
+      cursor: pointer;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .role-card.admin .btn {
+      background: var(--info);
+    }
+
+    .role-card.school .btn {
+      background: var(--success);
+    }
+
+    .role-card.partner .btn {
+      background: var(--warning);
+    }
+
+    .role-card .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.18);
+      transform: skewX(-25deg);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    .role-card:hover .btn::before {
+      left: 100%;
+    }
+
+    .role-card .btn span {
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .role-card:hover .btn span {
+      transform: scale(1.03);
+    }
+
+    /* SOCIAL CARDS (FOOTER) */
+    .social-card {
+      flex: 1;
+      min-width: 280px;
+      max-width: 320px;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      color: white;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 2.8s ease, transform 2.8s ease 0.2s;
+      transition: all 0.3s ease;
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-card.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .social-card-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      transition: all 0.3s ease;
+    }
+
+    .social-card:hover .social-card-icon-wrapper {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .social-card-icon-wrapper i {
+      color: white;
+      font-size: 2.5rem;
+    }
+
+    .social-card h3 {
+      color: white;
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    .social-card p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .social-card .btn {
+      display: block;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      background: white;
+      color: inherit;
+    }
+
+    /* WhatsApp Card */
+    .social-card.whatsapp {
+      background: #25d366;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    .social-card.whatsapp .btn {
+      background: white;
+      color: #25d366;
+    }
+
+    .social-card.whatsapp:hover {
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Instagram Card */
+    .social-card.instagram {
+      background: linear-gradient(45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888);
+      box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);
+    }
+
+    .social-card.instagram .btn {
+      background: white;
+      color: #dc2743;
+    }
+
+    .social-card.instagram:hover {
+      box-shadow: 0 12px 30px rgba(220, 39, 67, 0.4);
+    }
+
+    /* TikTok Card */
+    .social-card.tiktok {
+      background: #000000;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-card.tiktok .btn {
+      background: white;
+      color: #000000;
+    }
+
+    .social-card.tiktok:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: var(--white);
+      padding: 40px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right,
+          rgba(106, 53, 255, 0.1) 0%,
+          transparent 40%);
+      pointer-events: none;
+    }
+
+    .copyright {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: #94a3b8;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    /* HAMBURGER MENU */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: var(--white);
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    /* MOBILE MENU */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--white);
+      z-index: 1000;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      padding: 80px 30px 30px;
+      transition: right 0.4s ease;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: var(--primary);
+      transform: rotate(90deg);
+    }
+
+    /* ANIMASI PULSE UNTUK LOGIN CARD */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(106, 53, 255, 0.5);
+        transform: translateY(0);
+      }
+
+      50% {
+        box-shadow: 0 0 20px 10px rgba(106, 53, 255, 0.8);
+        transform: translateY(-5px);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(106, 53, 255, 0.5);
+        transform: translateY(0);
+      }
+    }
+
+    .role-card.highlight-pulse {
+      animation: pulse 1.5s ease;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-title {
+        margin-bottom: 40px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      /* Pastikan header role tetap kolom di tablet */
+      .role-header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .role-header h3 {
+        font-size: clamp(1rem, 2.8vw, 1.12rem);
+      }
+
+      /* Tinggi kartu untuk tablet */
+      .role-card {
+        min-height: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 70px 0;
+      }
+
+      .hero {
+        padding: 120px 0 80px;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-image {
+        transform: perspective(0) rotateY(0);
+      }
+
+      .feature-card,
+      .role-card {
+        padding: 20px;
+        min-height: auto;
+        /* Kembali ke tinggi otomatis di mobile */
+      }
+
+      .social-card {
+        min-width: 100%;
+      }
+
+      .role-header h3 {
+        font-size: clamp(0.98rem, 3.2vw, 1.1rem);
+      }
+
+      .role-icon {
+        font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .hero {
+        padding: 100px 0 60px;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .hero-btns .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .logo span {
+        font-size: 1.5rem;
+      }
+
+      .logo img {
+        height: 36px;
+      }
+
+      /* Pastikan ikon tetap di atas dan judul agak mengecil supaya muat di layar kecil */
+      .role-header {
+        flex-direction: column;
+        gap: 6px;
+        padding: 12px 8px;
+      }
+
+      .role-header h3 {
+        font-size: clamp(0.92rem, 4.2vw, 1rem);
+        white-space: normal;
+        max-width: 100%;
+      }
+
+      .role-icon {
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+        margin-bottom: 6px;
+      }
+    }
+  </style>
 
 </head>
 
@@ -1049,8 +1053,7 @@
         </div>
       </div>
       <div class="hero-image">
-        <img
-          src="https://vhurelhciwirynuqpnjt.supabase.co/storage/v1/object/public/aksara/image/halaman%20depan.jpg"
+        <img src="https://vhurelhciwirynuqpnjt.supabase.co/storage/v1/object/public/aksara/image/halaman%20depan.jpg"
           alt="Dashboard SaaS" />
       </div>
     </div>
@@ -1171,10 +1174,9 @@
               </li>
             </ul>
           </div>
-          <button class="btn btn-primary login-button" style="width: 100%">
-            <span
-              ><i class="fas fa-sign-in-alt"></i> Login sebagai Tefa</span
-            >
+          <button class="btn btn-primary login-button" style="width: 100%"
+            onclick="window.location.href='https://script.google.com/macros/s/AKfycbxnN0sUlERe1CnGms3dO8YglJBaVoEGbpgrG7D-o6bR129VmbT0HfXTwSPEpqB6Wg6hlQ/exec'">
+            <span><i class="fas fa-sign-in-alt"></i> Login sebagai Tefa</span>
           </button>
         </div>
 
@@ -1212,12 +1214,8 @@
               </li>
             </ul>
           </div>
-          <button
-            class="btn btn-primary login-button"
-            style="width: 100%; background: var(--success)">
-            <span
-              ><i class="fas fa-sign-in-alt"></i> Login sebagai Sekolah</span
-            >
+          <button class="btn btn-primary login-button" style="width: 100%; background: var(--success)">
+            <span><i class="fas fa-sign-in-alt"></i> Login sebagai Sekolah</span>
           </button>
         </div>
 
@@ -1255,12 +1253,8 @@
               </li>
             </ul>
           </div>
-          <button
-            class="btn btn-primary login-button"
-            style="width: 100%; background: var(--warning)">
-            <span
-              ><i class="fas fa-sign-in-alt"></i> Login sebagai Mitra</span
-            >
+          <button class="btn btn-primary login-button" style="width: 100%; background: var(--warning)">
+            <span><i class="fas fa-sign-in-alt"></i> Login sebagai Mitra</span>
           </button>
         </div>
       </div>
@@ -1321,9 +1315,9 @@
       </div>
     </div>
   </footer>
-  
+
   <!-- Hapus modal login choice -->
-  
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Header scroll effect
@@ -1389,7 +1383,7 @@
       // Tangani tombol "Login Sekarang" di hero
       const loginChoiceBtn = document.querySelector("#login-choice-btn");
       if (loginChoiceBtn) {
-        loginChoiceBtn.addEventListener("click", function(e) {
+        loginChoiceBtn.addEventListener("click", function (e) {
           e.preventDefault();
           // Scroll ke bagian pengguna
           const targetSection = document.getElementById("pengguna");
@@ -1397,12 +1391,12 @@
             // Hitung posisi target (dikurangi tinggi header)
             const headerHeight = header.offsetHeight;
             const targetPosition = targetSection.offsetTop - headerHeight;
-            
+
             window.scrollTo({
               top: targetPosition,
               behavior: "smooth"
             });
-            
+
             // Set timeout untuk memberi waktu scroll selesai, baru highlight
             setTimeout(() => {
               highlightCard("admin-tefa"); // Highlight kartu Admin Tefa
@@ -1418,11 +1412,11 @@
           e.preventDefault();
           // Animasi tombol yang diklik
           animateLoginButton(this);
-          
+
           // Tentukan ID kartu berdasarkan peran
           let cardId = "";
           const card = this.closest(".role-card");
-          
+
           if (card.classList.contains("admin")) {
             cardId = "admin-tefa";
           } else if (card.classList.contains("school")) {
@@ -1430,7 +1424,7 @@
           } else if (card.classList.contains("partner")) {
             cardId = "mitra-card";
           }
-          
+
           // Berikan efek highlight pada kartu
           if (cardId) {
             highlightCard(cardId);
@@ -1444,7 +1438,10 @@
           const targetId = this.getAttribute("href");
           if (targetId === "#") {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
             closeMobileNav();
             return;
           }
@@ -1500,8 +1497,7 @@
               entry.target.classList.remove("appear");
             }
           });
-        },
-        {
+        }, {
           threshold: 0.1,
         }
       );
@@ -1511,6 +1507,44 @@
       });
     });
   </script>
+  <script>
+    // Kode JavaScript sebelumnya tetap dipertahankan
+
+    // Fungsi untuk animasi tombol login
+    function animateLoginButton(button) {
+      button.classList.add("btn-pulse");
+      setTimeout(() => {
+        button.classList.remove("btn-pulse");
+      }, 500);
+    }
+
+    // Tangani tombol login di section user roles
+    const cardLoginBtns = document.querySelectorAll(".role-card .btn");
+    cardLoginBtns.forEach((btn) => {
+      btn.addEventListener("click", function (e) {
+        // Animasi tombol yang diklik
+        animateLoginButton(this);
+
+        // Tentukan ID kartu berdasarkan peran
+        let cardId = "";
+        const card = this.closest(".role-card");
+
+        if (card.classList.contains("admin")) {
+          cardId = "admin-tefa";
+        } else if (card.classList.contains("school")) {
+          cardId = "sekolah-card";
+        } else if (card.classList.contains("partner")) {
+          cardId = "mitra-card";
+        }
+
+        // Berikan efek highlight pada kartu
+        if (cardId) {
+          highlightCard(cardId);
+        }
+      });
+    });
+  </script>
+
 </body>
 
 </html>
